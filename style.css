@@ -28,7 +28,7 @@ body {
     transition: all 1s ease;
 }
 
-/* CRT & Background */
+/* bg */
 body::before,
 body::after {
     content: "";
@@ -165,7 +165,7 @@ body::after {
     text-shadow: 0 0 10px var(--neon-yellow);
 }
 
-/* UI Container */
+/* UI */
 .dashboard-container {
     width: 95%;
     max-width: 1200px;
@@ -336,7 +336,7 @@ header {
     background: rgba(255, 250, 205, 0.2);
 }
 
-/* Panels & Dashboard */
+/* Panels */
 .dashboard-grid {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
@@ -631,7 +631,7 @@ header {
     pointer-events: none;
 }
 
-/* Weekly Stats */
+/* Stats */
 .weekly-stat-panel {
     margin-top: 20px;
     flex-shrink: 0;
@@ -791,9 +791,6 @@ header {
     background: #000;
 }
 
-/* =========================================
-   HERO FEATURE: HYPERSPACE FLOW STATE 
-   ========================================= */
 body.flow-state .dashboard-container {
     background: transparent;
     border-color: transparent;
@@ -854,14 +851,13 @@ body.flow-state .panel-title {
 
 body.flow-state .grid {
     animation: grid 0.4s linear infinite;
-    /* Hyper speed */
 }
 
 body.flow-state .sun {
     box-shadow: 0 0 150px #ff00ff, 0 0 200px #fdfd00;
 }
 
-/* AI Chat Widget */
+/* chatt Widget */
 .chat-toggle-btn {
     position: fixed;
     bottom: 30px;
