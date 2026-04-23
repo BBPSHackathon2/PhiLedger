@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhiLedger: Study Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="synthwave-bg">
+        <div class="sun"></div>
+        <div class="grid"></div>
+        <div class="mountain-range"></div>
+    </div>
+
+    <!-- Horizon Car (Side Profile) -->
+    <div class="horizon-car" id="horizon-car">
+        <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="45" r="12" fill="#111" stroke="var(--neon-cyan)" stroke-width="2" />
+            <circle cx="150" cy="45" r="12" fill="#111" stroke="var(--neon-cyan)" stroke-width="2" />
+            <circle cx="40" cy="45" r="4" fill="var(--neon-purple)" />
+            <circle cx="150" cy="45" r="4" fill="var(--neon-purple)" />
+            <path d="M 20 40 L 10 30 L 25 20 L 70 15 L 120 15 L 160 25 L 190 35 L 190 40 Z" fill="#222"
+                stroke="var(--neon-cyan)" stroke-width="2" />
+            <path d="M 75 15 L 115 15 L 145 25 L 70 25 Z" fill="#111" stroke="var(--neon-pink)" stroke-width="1.5" />
+            <line x1="20" y1="48" x2="180" y2="48" stroke="var(--neon-purple)" stroke-width="3"
+                filter="drop-shadow(0 5px 5px var(--neon-purple))" />
+            <rect x="8" y="28" width="5" height="10" fill="var(--neon-red)"
+                filter="drop-shadow(-5px 0 10px var(--neon-red))" />
+            <rect x="188" y="35" width="4" height="6" fill="#fff" filter="drop-shadow(5px 0 10px #fff)" />
+        </svg>
+    </div>
+
+    <!-- Finish Line -->
+    <div class="finish-line">
+        <span class="finish-line-text" id="finish-line-text"></span>
+    </div>
+
+    <!-- Cassette Archive -->
+    <div class="archive-overlay" id="archive-overlay">
+        <div class="archive-modal">
+            <h2 class="panel-title">CASSETTE ARCHIVE</h2>
+            <button id="close-archive" class="neon-btn small reset">CLOSE</button>
+            <div class="shelf" id="cassette-shelf">
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <header>
+            <div class="header-top">
+                <div class="header-controls" style="display: flex; gap: 10px; align-items: center;">
+                    <button id="open-archive" class="neon-btn small">ARCHIVE</button>
+                    <button id="info-btn" class="neon-btn small"
+                        style="border-radius: 50%; width: 28px; height: 28px; padding: 0; font-family: monospace; font-size: 1.1rem; line-height: 1;"
+                        title="System Info">i</button>
+                </div>
+                <h1 class="neon-text title">PhiLedger</h1>
+                <div class="rank-container">
+                    <div class="rank-badge" id="rank-badge">IRON</div>
+                    <div class="xp-bar-container">
+                        <div class="xp-bar" id="xp-bar"></div>
+                    </div>
+                    <div class="xp-text" id="xp-text">0 / 100 XP</div>
+                </div>
+            </div>
+            <p class="subtitle">System Status: <span class="neon-cyan" id="system-status">ONLINE</span></p>
+        </header>
+
+        <main class="dashboard-grid">
+            <!-- Pomodoro Timer -->
+            <section class="panel timer-panel">
+                <h2 class="panel-title">HYPERDRIVE TIMER</h2>
+                <div class="timer-adjust" id="timer-adjust">
+                    <button id="time-dec" class="neon-btn small">-5 MIN</button>
+                    <button id="time-inc" class="neon-btn small">+5 MIN</button>
+                </div>
+                <div class="timer-display" id="time-display">25:00</div>
+                <div class="timer-controls">
+                    <button id="start-timer" class="neon-btn">START</button>
+                    <button id="pause-timer" class="neon-btn">PAUSE</button>
+                    <button id="reset-timer" class="neon-btn reset">RESET</button>
+                </div>
+                <a href="https://open.spotify.com/playlist/6XVRJ34v6br1Y9UcsXC9gX?si=skpM1tsKSiOO9tHDw2Vf0Q"
+                    target="_blank" class="spotify-btn">🎧 LAUNCH SPOTIFY</a>
+            </section>
+
+            <!-- Mission Log (To-Do) -->
+            <section class="panel mission-panel">
+                <h2 class="panel-title">MISSION LOG</h2>
+                <form id="mission-form" class="mission-input-group">
+                    <input type="text" id="mission-input" placeholder="ENTER NEW MISSION..." autocomplete="off"
+                        required>
+                    <label class="boss-toggle">
+                        <input type="checkbox" id="boss-checkbox">
+                        <span class="boss-label">BOSS</span>
+                    </label>
+                    <button type="submit" class="neon-btn small">ADD</button>
+                </form>
+                <ul id="mission-list" class="mission-list">
+                    <!-- Missions will be added here -->
+                </ul>
+            </section>
+        </main>
+
+        <!-- Time-Blocking Calendar -->
+        <section class="panel calendar-panel">
+            <h2 class="panel-title">MISSION TIMELINE</h2>
+            <div class="timeline-container" id="timeline-container">
+                <div class="timeline-scroll" id="timeline-tracks">
+                    <div class="scanner-line" id="scanner-line"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weekly Stats -->
+        <section class="panel weekly-stat-panel">
+            <h2 class="panel-title">WEEKLY PROGRESS</h2>
+            <div class="stat-grid" id="weekly-stat-grid">
+                <div class="stat-card">
+                    <div class="stat-value neon-cyan" id="stat-missions">0</div>
+                    <div class="stat-label">MISSIONS CLEARED</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value neon-purple" id="stat-focus">0 MIN</div>
+                    <div class="stat-label">FOCUS TIME</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value neon-yellow" id="stat-days">0 / 7</div>
+                    <div class="stat-label">DAYS ACTIVE</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Info Modal overlay -->
+    <div class="archive-overlay" id="info-overlay">
+        <div class="archive-modal">
+            <h2 class="panel-title">SYSTEM INFO</h2>
+            <button id="close-info" class="neon-btn small reset"
+                style="position: absolute; top: 15px; right: 20px;">CLOSE</button>
+            <div class="info-content">
+                <p style="font-size: 1.1rem; color: var(--neon-cyan); margin-bottom: 10px;">WELCOME TO PHILEDGER-OS v3.1</p>
+                <p>PhiLedger is a state-of-the-art synthwave productivity environment designed to bridge the gap between deep work and gamified progression. This is not just a dashboard; it is your digital cockpit for conquering the algorithm.</p>
+                
+                <div style="margin-top: 25px;">
+                    <h3 style="color: var(--neon-pink); border-bottom: 1px solid var(--neon-pink); padding-bottom: 5px; margin-bottom: 10px; font-size: 0.8rem; font-family: var(--font-retro);">CORE SYSTEMS</h3>
+                    <ul style="padding-left: 0; list-style: none;">
+                        <li style="margin-bottom: 15px;">
+                            <strong style="color: var(--neon-cyan); display: block;">HYPERDRIVE TIMER (Pomodoro)</strong>
+                            Engage the Hyperdrive to enter a distraction-free 'Flow State'. When active, the UI strips away distractions and accelerates the retro-grid. Complete sessions to earn massive XP.
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <strong style="color: var(--neon-purple); display: block;">MISSION LOG & BOSS FIGHTS</strong>
+                            Your tasks are your missions. Standard missions grant base XP, but marking a task as a "BOSS" initiates a high-stakes encounter requiring multiple completions to 'defeat', rewarding you with elite XP gains.
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <strong style="color: var(--neon-yellow); display: block;">MISSION TIMELINE</strong>
+                            A linear time-blocking interface. Drag and drop your missions onto the timeline to schedule your day. The scanner line tracks your real-time progress across the 24-hour cycle.
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <strong style="color: var(--neon-red); display: block;">GAMIFIED RANKING</strong>
+                            Scale the ranks from Iron to Radiant. Your progress is physically represented by your horizon vehicle's position. Reach the finish line to advance to the next tier.
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <strong style="color: var(--neon-pink); display: block;">PHILEDGER-OS AI</strong>
+                            A context-aware intelligent assistant. The AI monitors your current missions, timeline, and rank in real-time, providing personalized strategic advice and focus tips tailored to your specific workload.
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.4); border: 1px dashed var(--neon-cyan); border-radius: 5px;">
+                    <p style="font-size: 0.7rem; color: #888; text-align: center;">SYSTEM MAINTENANCE: All data is stored locally in your browser's neural net (LocalStorage). No external surveillance active.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- AI Chat Widget -->
+    <div class="ai-chat-widget" id="ai-chat-widget">
+        <div class="chat-header">
+            <span class="chat-title">PhiLedger-OS AI</span>
+            <button id="close-chat" class="neon-btn small reset" style="padding: 2px 6px;">X</button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message ai">
+                SYSTEM ONLINE. Greetings, pilot. I am your PhiLedger-OS assistant. How can I optimize your workflow today?
+            </div>
+        </div>
+        <form id="chat-form" class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Query system..." autocomplete="off" required>
+            <button type="submit" class="neon-btn small">SEND</button>
+        </form>
+    </div>
+    
+    <button id="chat-toggle" class="chat-toggle-btn" title="Open AI Assistant">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
