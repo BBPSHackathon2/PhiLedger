@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let xp = parseInt(localStorage.getItem('neonDriveXP')) || 0, dailyTasks = 0, dailyPomodoros = 0;
     const todayKey = 'stats_' + new Date().toISOString().split('T')[0];
 
-    // --- 1. Rank System ---
+    // --- 1. valo ah ---
     const ranks = [
         { n: 'IRON', m: 200, c: 'rank-iron' }, { n: 'BRONZE', m: 500, c: 'rank-bronze' }, { n: 'SILVER', m: 1000, c: 'rank-silver' },
         { n: 'GOLD', m: 2000, c: 'rank-gold' }, { n: 'PLATINUM', m: 3500, c: 'rank-platinum' }, { n: 'DIAMOND', m: 5500, c: 'rank-diamond' },
@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function addXP(a) { xp += a; updateRank(); saveStats(); }
 
-    // --- 2. Timer & Hyperspace Flow State ---
-    let defaultTime = 25 * 60; // Default 25 min pomodoro
+    // --- 2. Timer & Flow State ---
+    let defaultTime = 25 * 60;
     let timer, time = defaultTime, isRunning = false;
     const updateTime = () => $('time-display').textContent = `${Math.floor(time / 60).toString().padStart(2, '0')}:${(time % 60).toString().padStart(2, '0')}`;
     const toggleFlow = () => {
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(() => $('scanner-line').style.left = (((new Date().getHours() * 60 + new Date().getMinutes()) / 1440) * 100) + '%', 60000);
     setTimeout(() => $('timeline-container').scrollLeft = ((new Date().getHours() * 60 + new Date().getMinutes()) / 1440) * $('timeline-tracks').offsetWidth - ($('timeline-container').offsetWidth / 2), 100);
 
-    // --- 5. Archive & Weekly Stats ---
+    // --- 5. Archive n weekly ---
     const renderWeeklyStats = () => {
         if (!$('stat-missions')) return;
         const today = new Date();
@@ -111,11 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
     $('open-archive').onclick = () => { renderArchive(); $('archive-overlay').style.display = 'flex'; };
     $('close-archive').onclick = () => $('archive-overlay').style.display = 'none';
 
-    // Info Modal
+    // Info
     $('info-btn').onclick = () => $('info-overlay').style.display = 'flex';
     $('close-info').onclick = () => $('info-overlay').style.display = 'none';
 
-    // --- Audio SFX ---
+    // --- SFX ---
     const playSFX = (freq = 600, type = 'square') => {
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- 6. AI Chatbot ---
+    // --- 6. Chatbot ---
     const chatWidget = $('ai-chat-widget');
     const chatMessages = $('chat-messages');
 
@@ -165,8 +165,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const getSmartResponse = async (text) => {
-        // ⚠️ IMPORTANT: Replace 'YOUR_GEMINI_API_KEY_HERE' with your actual Gemini API Key.
-        // NOTE: Hardcoding API keys in frontend code is only safe if you are the ONLY one using this dashboard locally.
         const apiKey = 'AIzaSyClSXXQNiEnwAufFv9GKP77L7trV-q-XD8';
 
         appendMessage('...', 'ai');
@@ -192,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!response.ok) {
                 chatHistory.pop();
-                return 'ERROR: API Key is invalid or rate-limited. Neural link severed. Please check your Gemini API Key in script.js.';
+                return 'ERROR: check key.';
             }
 
             const data = await response.json();
@@ -203,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             if (typingIndicator.parentNode) typingIndicator.remove();
             chatHistory.pop();
-            return 'COMMUNICATION ERROR: Unable to reach Gemini mainframe. Check your connection.';
+            return 'error.';
         }
     };
 
@@ -219,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (response) appendMessage(response, 'ai');
     };
 
-    // Init
+    
     if (!localStorage.getItem(todayKey)) saveStats(); else loadStats();
     updateRank(); updateTime(); renderWeeklyStats(); addMission('Initialize', false); addMission('Defeat Algorithm', true);
 });
